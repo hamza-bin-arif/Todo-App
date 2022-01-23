@@ -42,6 +42,24 @@ export default function App() {
 	
   }
 
+  const searchTasks = async(text) => {
+
+		let previousTasks = [];
+		let tasks = [];
+
+		previousTasks = await AsyncStorage.getItem('tasks').then(data => {
+			return JSON.parse(data);
+		});
+
+		previousTasks.forEach((task)=>{
+			let title = task.title.toLowerCase();
+			if( title.match(text.toLowerCase()) ) {
+				tasks.push(task);
+			}
+		})
+    setTaskItems(tasks)
+	}
+
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
@@ -72,7 +90,7 @@ export default function App() {
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Today's tasks</Text>
 		<View>
-			<TextInput style={ styles.searchField} placeholder='Search' />
+			<TextInput style={ styles.searchField} placeholder='Search' onChangeText={text => searchTasks(text)}/>
 		</View>
         <View style={styles.items}>
           {/* This is where the tasks will go! */}

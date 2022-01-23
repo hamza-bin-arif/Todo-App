@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const Task = (props) => {
   return (
@@ -11,7 +11,9 @@ const Task = (props) => {
                 <Text style={styles.description}>{props.description}</Text>
             </View>
       </View>
-      <View style={styles.circular}></View>
+      <View>
+        <Image source={require('../assets/bin.png')} style={{width:20, height: 20}} />
+      </View>
     </View>
   )
 }
